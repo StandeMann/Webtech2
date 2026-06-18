@@ -5,14 +5,14 @@ use Framework\Database\DatabaseMigrator;
 
 $connection = new Connection();
 
-//$stmt = $connection->getPdo()->prepare("
-//    UPDATE users
-//    SET role = ?
-//    WHERE id = ?
-//");
-//
-//$stmt->execute(['admin', 1]);
+$stmt = $connection->getPdo()->prepare("
+    UPDATE users
+    SET role = ?
+    WHERE id = ?
+");
 
-$migrator = new DatabaseMigrator();
-$migrator->alterDatabase($connection->getPdo());
+$stmt->execute(['admin', 2]);
+
+//$migrator = new DatabaseMigrator();
+//$migrator->alterDatabase($connection->getPdo());
 
