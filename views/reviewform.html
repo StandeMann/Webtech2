@@ -1,0 +1,26 @@
+<div class="form-container">
+    <form class="book-form" enctype="multipart/form-data" action="/bookDetail/{id}" method="POST">
+
+        <h2>Plaats een review!</h2>
+        <!-- Genre -->
+        <div class="input-group">
+            <label>Sterren</label>
+            <select name="stars" required>
+                <option value="">Kies een aantal sterren</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+        </div>
+
+        <!-- Beschrijving -->
+        <div class="input-group">
+            <label>Beschrijving</label>
+            <textarea rows="4" placeholder="Korte beschrijving..." name="description" required></textarea>
+        </div>
+
+        <button type="submit">Review plaatsen</button>
+    </form>
+</div>

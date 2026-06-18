@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>403 - Geen toegang</title>
+    <!--    <link rel="stylesheet" href="/css/style.css">-->
+    <style>
+        body {
+            margin: 0;
+            background: #f1f5f9;
+            font-family: Arial, sans-serif;
+        }
+
+        .error-page {
+            height: 100vh;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .error-container {
+            background: white;
+            padding: 50px;
+            border-radius: 15px;
+            width: 450px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .error-code {
+            font-size: 6rem;
+            color: #4facfe;
+            font-weight: bold;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #4facfe;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #00c6ff;
+        }
+    </style>
+</head>
+<body>
+<div class="error-page">
+    <div class="error-container">
+        <div class="error-code">403</div>
+
+        <h2>Geen toegang tot deze pagina</h2>
+
+        <p class="error-message">
+            Er zijn geen rechten verleend aan de pagina die je probeert te bezoeken.
+        </p>
+
+        <a href="/">
+            <button>Terug naar home</button>
+        </a>
+    </div>
+</div>
+</body>

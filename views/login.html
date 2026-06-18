@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <main class="login">
+        <div class="login-container">
+            <form class="login-form" method="POST" action="/login">
+                <h2>Inloggen</h2>
+
+                <div class="input-group">
+                    <label for="email">E-mailadres</label>
+                    <input type="email" id="email" placeholder="jij@email.com"  name="email" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Wachtwoord</label>
+                    <input type="password" id="password" placeholder="••••••••" name="password" required>
+                </div>
+
+                <button type="submit">Login</button>
+
+                <p class="extra">
+                    Nog geen account? <a href="/register">Registreren</a>
+                </p>
+            </form>
+        </div>
+    </main>
+</body>
+</html>

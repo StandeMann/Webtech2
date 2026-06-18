@@ -1,0 +1,512 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f1f5f9;
+}
+
+.login {
+    height: 100vh;
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Header */
+header {
+    background: linear-gradient(135deg, #4facfe, #00c6ff);
+    color: white;
+    text-align: center;
+    padding: 25px;
+}
+
+/* Grid */
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    padding: 30px;
+}
+
+/* Card */
+.book-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    cursor: pointer;
+
+    /* Smooth animation */
+    transition: all 0.3s ease;
+
+    /* Soft shadow */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+/* Inner content */
+.card-content {
+    padding: 20px;
+}
+
+/* Hover effect ✨ */
+.book-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+/* Extra hover detail (subtiel kleuraccent) */
+.book-card::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, #4facfe, #00f2fe);
+    top: 0;
+    left: 0;
+    transform: scaleX(0);
+    transition: 0.3s;
+}
+
+.book-card:hover::before {
+    transform: scaleX(1);
+}
+
+/* Tekst */
+h3 {
+    margin-bottom: 10px;
+}
+
+.author {
+    color: #4facfe;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.login-container {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    width: 320px;
+}
+
+.login-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    transition: 0.3s;
+}
+
+.input-group input:focus {
+    border-color: #4facfe;
+    outline: none;
+    box-shadow: 0 0 5px rgba(79,172,254,0.5);
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background: #4facfe;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #00c6ff;
+}
+
+.extra {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.extra a {
+    color: #4facfe;
+    text-decoration: none;
+}
+
+.extra a:hover {
+    text-decoration: underline;
+}
+
+
+/* Header layout */
+header {
+    position: relative;
+    background: linear-gradient(135deg, #4facfe, #00c6ff);
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Menu container */
+.menu {
+    position: relative;
+}
+
+/* Checkbox verbergen */
+#menu-toggle {
+    display: none;
+}
+
+/* Hamburger icon */
+.hamburger {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: white;
+    border-radius: 2px;
+    transition: 0.3s;
+}
+
+/* Menu items (dropdown) */
+.menu-items {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background: white;
+    color: #333;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    display: none;
+    flex-direction: column;
+    min-width: 180px;
+    overflow: hidden;
+}
+
+/* Links */
+.menu-items a {
+    padding: 12px 15px;
+    text-decoration: none;
+    color: #333;
+    transition: 0.2s;
+}
+
+.book-detail-container {
+    padding: 30px;
+}
+
+.menu-items a:hover {
+    background: #f1f5f9;
+}
+
+/* Toon menu wanneer checkbox actief is */
+#menu-toggle:checked + .hamburger + .menu-items {
+    display: flex;
+}
+
+/* Animatie hamburger → kruisje */
+#menu-toggle:checked + .hamburger span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+#menu-toggle:checked + .hamburger span:nth-child(2) {
+    opacity: 0;
+}
+
+#menu-toggle:checked + .hamburger span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Header (zelfde stijl als dashboard) */
+
+/* Container */
+.book-detail-container {
+    padding: 30px;
+}
+
+/* Boek card */
+.book-detail.book-card {
+    display: flex;
+    gap: 30px;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 900px;
+    margin: 0 auto 40px auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* Image */
+.book-image img {
+    width: 200px;
+    border-radius: 10px;
+}
+
+/* Info */
+.book-info h3 {
+    color: #4facfe;
+    margin-bottom: 15px;
+}
+
+.description {
+    margin-bottom: 20px;
+}
+
+/* ⭐ Reviews */
+.reviews {
+    max-width: 900px;
+    margin: auto;
+}
+
+.reviews h2 {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+/* Review grid */
+.review-list {
+    display: grid;
+    gap: 20px;
+}
+
+/* Review card */
+.review-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    transition: 0.3s;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+/* Hover effect ✨ */
+.review-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.review-text {
+    margin-bottom: 10px;
+    font-style: italic;
+}
+
+.review-author {
+    font-weight: bold;
+    color: #4facfe;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+    .book-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .book-image img {
+        width: 150px;
+    }
+}
+
+.register {
+    height: 100vh;
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Container */
+.register-container {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    width: 350px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* Form */
+.register-form h2 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+
+/* Container */
+.form-container {
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+}
+
+/* Form card */
+.book-form {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    width: 400px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.book-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Inputs */
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.input-group input,
+.input-group select,
+.input-group textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    transition: 0.3s;
+}
+
+/* Focus effect */
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus {
+    border-color: #4facfe;
+    outline: none;
+    box-shadow: 0 0 5px rgba(79,172,254,0.5);
+}
+
+/* Button */
+button {
+    width: 100%;
+    padding: 12px;
+    background: #4facfe;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #00c6ff;
+}
+
+.book-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+/* Filterbalk */
+.filter-bar {
+    background: white;
+    padding: 20px 30px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
+
+.filter-form {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.filter-form input,
+.filter-form select {
+    flex: 1;
+    min-width: 200px;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.filter-form input:focus,
+.filter-form select:focus {
+    outline: none;
+    border-color: #4facfe;
+    box-shadow: 0 0 5px rgba(79,172,254,0.4);
+}
+
+.filter-form button {
+    width: auto;
+    min-width: 140px;
+    padding: 12px 20px;
+}
+
+.error-container {
+    background: white;
+    padding: 50px;
+    border-radius: 15px;
+    width: 450px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+
+    animation: fadeIn 0.4s ease;
+}
+
+.error-code {
+    font-size: 6rem;
+    font-weight: bold;
+    color: #4facfe;
+    margin-bottom: 15px;
+    line-height: 1;
+}
+
+.error-container h2 {
+    margin-bottom: 15px;
+}
+
+.error-message {
+    margin-bottom: 25px;
+    color: #555;
+    line-height: 1.6;
+}
+
+.error-container button {
+    max-width: 220px;
+    margin: 0 auto;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

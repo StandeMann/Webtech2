@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registreren</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<main class="register">
+    <div class="register-container">
+        <form class="register-form" method="POST" action="/register">
+            <h2>Account Registreren</h2>
+
+            <div class="input-group">
+                <label>Naam</label>
+                <input type="text" placeholder="Jouw naam" name="name" required>
+            </div>
+
+            <div class="input-group">
+                <label>E-mailadres</label>
+                <input type="email" placeholder="jij@email.com" name="email" required>
+            </div>
+
+            <div class="input-group">
+                <label>Wachtwoord</label>
+                <input type="password" placeholder="••••••••" name="password" required>
+            </div>
+
+            <div class="input-group">
+                <label>Herhaal wachtwoord</label>
+                <input type="password" placeholder="••••••••" name="password_repeat" required>
+            </div>
+
+            <button onclick="alert('Registratie verwerkt')" type="submit">Registreren</button>
+
+            <p class="extra">
+                Heb je al een account? <a href="/login">Inloggen</a>
+            </p>
+        </form>
+    </div>
+</main>
+
+</body>
+</html>
