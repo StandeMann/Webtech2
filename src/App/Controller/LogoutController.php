@@ -5,7 +5,7 @@ namespace App\Controller;
 
 use App\Repository\BookFunctions;
 use Framework\AccesControl\AuthenticationService;
-use Framework\Http\Request;
+use Framework\Http\Classes\Request;
 use PDO;
 
 class LogoutController

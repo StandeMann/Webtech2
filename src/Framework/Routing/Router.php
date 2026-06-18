@@ -1,7 +1,7 @@
 <?php
 
 namespace Framework\Routing;
-use Framework\Http\Request;
+use Framework\Http\Classes\Request;
 
 class Router
 {

@@ -1,8 +1,9 @@
 <?php
 
-namespace Framework\Http;
+namespace Framework\Http\Interfaces;
 
-use Uri\Rfc3986\Uri;
+use Framework\Http\Classes\Uri;
+
 
 /**
  * Representation of an incoming, server-side HTTP request.

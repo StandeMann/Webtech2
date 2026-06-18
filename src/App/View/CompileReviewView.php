@@ -3,7 +3,7 @@
 namespace App\View;
 
 use App\Model\Book;
-use Framework\Http\Request;
+use Framework\Http\Classes\Request;
 
 class CompileReviewView
 {

@@ -2,9 +2,9 @@
 
 namespace Framework\AccesControl;
 
-use App\Repository\UserFunctions;
-use Framework\Http\Session;
 use App\Model\User;
+use App\Repository\UserFunctions;
+use Framework\Http\Classes\Session;
 
 class AuthenticationService
 {

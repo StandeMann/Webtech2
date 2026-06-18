@@ -2,14 +2,14 @@
 
 namespace App\Controller;
 
+use App\Repository\BookFunctions;
 use App\View\CompileDashBoardView;
 use App\View\CompileHeaderView;
 use Framework\AccesControl\AuthenticationService;
-use Framework\Http\Request;
-use Framework\Http\Response;
+use Framework\Http\Classes\Request;
+use Framework\Http\Classes\Response;
 use JetBrains\PhpStorm\NoReturn;
 use PDO;
-use App\Repository\BookFunctions;
 
 class DashboardController
 {

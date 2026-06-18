@@ -6,8 +6,8 @@ use App\Repository\BookFunctions;
 use App\View\CompileAddBookView;
 use App\View\CompileHeaderView;
 use Framework\AccesControl\AuthenticationService;
-use Framework\Http\Request;
-use Framework\Http\Response;
+use Framework\Http\Classes\Request;
+use Framework\Http\Classes\Response;
 use PDO;
 
 class AddBookController

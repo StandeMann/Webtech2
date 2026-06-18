@@ -4,12 +4,12 @@ session_start();
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use Framework\Http\Request;
-use Framework\Kernel\Kernel;
-use Framework\Http\Session;
+use App\Repository\UserFunctions;
 use Framework\AccesControl\AuthenticationService;
 use Framework\Database\Connection;
-use App\Repository\UserFunctions;
+use Framework\Http\Classes\Request;
+use Framework\Http\Classes\Session;
+use Framework\Kernel\Kernel;
 
 $session =  new Session();
 

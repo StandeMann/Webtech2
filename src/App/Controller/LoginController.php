@@ -2,10 +2,10 @@
 
 namespace App\Controller;
 
-use Framework\AccesControl\AuthenticationService;
-use Framework\Http\Request;
-use Framework\Http\Response;
 use App\Repository\UserFunctions;
+use Framework\AccesControl\AuthenticationService;
+use Framework\Http\Classes\Request;
+use Framework\Http\Classes\Response;
 use JetBrains\PhpStorm\NoReturn;
 use PDO;
 

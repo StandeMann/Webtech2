@@ -2,14 +2,14 @@
 
 namespace App\Controller;
 
-use App\View\CompileHeaderView;
-use App\View\CompileReviewView;
-use Framework\AccesControl\AuthenticationService;
-use Framework\Http\Request;
-use Framework\Http\Response;
 use App\Repository\BookFunctions;
 use App\Repository\ReviewFunctions;
+use App\View\CompileHeaderView;
+use App\View\CompileReviewView;
 use App\View\ReviewView;
+use Framework\AccesControl\AuthenticationService;
+use Framework\Http\Classes\Request;
+use Framework\Http\Classes\Response;
 use PDO;
 
 class BookDetailController

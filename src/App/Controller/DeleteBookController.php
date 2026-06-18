@@ -2,12 +2,11 @@
 
 namespace App\Controller;
 
-use App\Model\Book;
 use App\Repository\BookFunctions;
 use App\Repository\ReviewFunctions;
 use Framework\AccesControl\AuthenticationService;
-use Framework\Http\Request;
-use Framework\Http\Response;
+use Framework\Http\Classes\Request;
+use Framework\Http\Classes\Response;
 use PDO;
 
 class DeleteBookController

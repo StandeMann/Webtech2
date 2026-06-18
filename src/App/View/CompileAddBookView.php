@@ -2,7 +2,7 @@
 
 namespace App\View;
 
-use Framework\Http\Request;
+use Framework\Http\Classes\Request;
 
 class CompileAddBookView
 {

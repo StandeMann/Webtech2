@@ -12,9 +12,10 @@ use App\Controller\LogoutController;
 use App\Controller\RegisterController;
 use Framework\AccesControl\AuthenticationService;
 use Framework\Database\Connection;
-use Framework\Http\Request;
-use Framework\Http\Response;
+use Framework\Http\Classes\Request;
+use Framework\Http\Classes\Response;
 use Framework\Routing\Router;
+
 class Kernel
 {
     private Connection $connection;
