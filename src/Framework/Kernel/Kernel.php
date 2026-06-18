@@ -14,15 +14,19 @@ use Framework\AccesControl\AuthenticationService;
 use Framework\Database\Connection;
 use Framework\Http\Classes\Request;
 use Framework\Http\Classes\Response;
+use Framework\Http\Interfaces\RequestInterface;
 use Framework\Routing\Router;
+use Framework\Templating\TemplateEngine;
 
-class Kernel
+class Kernel implements KernelInterface
 {
     private Connection $connection;
     private AuthenticationService $authenticationService;
-    public function __construct(Connection $connection, $authenticationService){
+    private TemplateEngine $templateEngine;
+    public function __construct(Connection $connection, $authenticationService, TemplateEngine $templateEngine){
         $this->connection = $connection;
         $this->authenticationService = $authenticationService;
+        $this->templateEngine = $templateEngine;
     }
 
     public function getConnection(): Connection
@@ -30,18 +34,18 @@ class Kernel
         return $this->connection;
     }
 
-    public function handle(Request $request): Response
+    public function handle(RequestInterface $request): Response
     {
         $router = new Router();
 
-        $addBookController = new AddBookController($this::getConnection()->getPdo(), $this->authenticationService);
-        $bookDetailController = new BookDetailController($this::getConnection()->getPdo(), $this->authenticationService);
-        $dashBoardController = new DashBoardController($this::getConnection()->getPdo(), $this->authenticationService);
-        $loginController = new LoginController($this::getConnection()->getPdo(), $this->authenticationService);
-        $registerController = new RegisterController($this::getConnection()->getPdo(), $this->authenticationService);
-        $errorController = new ErrorController($this::getConnection()->getPdo(), $this->authenticationService);
-        $logoutController = new LogoutController($this::getConnection()->getPdo(), $this->authenticationService);
-        $deleteBookController = new DeleteBookController($this::getConnection()->getPdo(), $this->authenticationService);
+        $addBookController = new AddBookController($this::getConnection()->getPdo(), $this->authenticationService, $this->templateEngine);
+        $bookDetailController = new BookDetailController($this::getConnection()->getPdo(), $this->authenticationService, $this->templateEngine);
+        $dashBoardController = new DashBoardController($this::getConnection()->getPdo(), $this->authenticationService, $this->templateEngine);
+        $loginController = new LoginController($this::getConnection()->getPdo(), $this->authenticationService, $this->templateEngine);
+        $registerController = new RegisterController($this::getConnection()->getPdo(), $this->authenticationService, $this->templateEngine);
+        $errorController = new ErrorController($this::getConnection()->getPdo(), $this->authenticationService, $this->templateEngine);
+        $logoutController = new LogoutController($this::getConnection()->getPdo(), $this->authenticationService, $this->templateEngine);
+        $deleteBookController = new DeleteBookController($this::getConnection()->getPdo(), $this->authenticationService, $this->templateEngine);
 
         $router->add(
             'GET',
@@ -137,11 +141,19 @@ class Kernel
             '/404',
             [$errorController, 'error404']
         );
+        try {
+            $route = $router->route($request);
+            $user = $this->authenticationService->getCurrentUser();
 
+            if ($user) {
+                $request = $request->withUser($user);
+            }
 
-        $route = $router->match($request);
+            $controller = $route['controller'];
+            $params = $route['params'];
 
-        if (!$route) {
+            return $controller($request, $params);
+        } catch (\DomainException $e) {
             ob_start();
 
             require __DIR__ . '/../../../views/404.html';
@@ -149,16 +161,5 @@ class Kernel
             $html = ob_get_clean();
             return new Response($html, 404);
         }
-
-        $user = $this->authenticationService->getCurrentUser();
-
-        if ($user) {
-            $request = $request->withUser($user);
-        }
-
-        $controller = $route['controller'];
-        $params = $route['params'];
-
-        return $controller($request, $params);
     }
 }

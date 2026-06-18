@@ -10,6 +10,7 @@ use App\View\ReviewView;
 use Framework\AccesControl\AuthenticationService;
 use Framework\Http\Classes\Request;
 use Framework\Http\Classes\Response;
+use Framework\Templating\TemplateEngine;
 use PDO;
 
 class BookDetailController
@@ -18,16 +19,18 @@ class BookDetailController
     private PDO $pdo;
     private ReviewFunctions $reviewFunctions;
     private AuthenticationService $authenticationService;
+    private TemplateEngine $templateEngine;
 
     /**
      * @param PDO $pdo
      */
-    public function __construct(PDO $pdo, AuthenticationService $authenticationService)
+    public function __construct(PDO $pdo, AuthenticationService $authenticationService, TemplateEngine $templateEngine)
     {
         $this->pdo = $pdo;
         $this->bookFunctions = new BookFunctions($this->pdo);
         $this->reviewFunctions = new ReviewFunctions($this->pdo);
         $this->authenticationService = $authenticationService;
+        $this->templateEngine = $templateEngine;
     }
 
     public function showPage(Request $request, array $params): Response{
@@ -46,13 +49,7 @@ class BookDetailController
         $reviewRender = new CompileReviewView($request);
         $headerRender = new CompileHeaderView($request);
 
-
-
-        ob_start();
-
-        require __DIR__ . '/../../../views/book-detail.html';
-
-        $html = ob_get_clean();
+        $html = $this->templateEngine->render('book-detail', $params);
 
         $html .= $headerRender->renderHeader();
 

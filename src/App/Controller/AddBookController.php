@@ -8,6 +8,7 @@ use App\View\CompileHeaderView;
 use Framework\AccesControl\AuthenticationService;
 use Framework\Http\Classes\Request;
 use Framework\Http\Classes\Response;
+use Framework\Templating\TemplateEngine;
 use PDO;
 
 class AddBookController
@@ -15,18 +16,20 @@ class AddBookController
     private PDO $pdo;
     private BookFunctions $bookFunctions;
     private AuthenticationService $authenticationService;
+    private TemplateEngine $templateEngine;
 
     /**
      * @param PDO $pdo
      */
-    public function __construct(PDO $pdo, AuthenticationService $authenticationService)
+    public function __construct(PDO $pdo, AuthenticationService $authenticationService, TemplateEngine $templateEngine)
     {
         $this->authenticationService = $authenticationService;
         $this->pdo = $pdo;
         $this->bookFunctions = new BookFunctions($this->pdo);
+        $this->templateEngine = $templateEngine;
     }
 
-    public function showPage(Request $request): Response{
+    public function showPage(Request $request, array $params): Response{
         $compileHeader = new CompileHeaderView($request);
         $compileAddBook =  new CompileAddBookView($request);
         $user = $request->getUser();
@@ -36,11 +39,7 @@ class AddBookController
             exit;
         }
 
-        ob_start();
-
-        require __DIR__ . '/../../../views/book-add.html';
-
-        $html = ob_get_clean();
+        $html = $this->templateEngine->render('book-add', $params);
 
         $html .= $compileHeader->renderHeader();
 

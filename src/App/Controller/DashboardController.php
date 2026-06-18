@@ -8,6 +8,7 @@ use App\View\CompileHeaderView;
 use Framework\AccesControl\AuthenticationService;
 use Framework\Http\Classes\Request;
 use Framework\Http\Classes\Response;
+use Framework\Templating\TemplateEngine;
 use JetBrains\PhpStorm\NoReturn;
 use PDO;
 
@@ -16,15 +17,17 @@ class DashboardController
     private PDO $pdo;
     private BookFunctions $bookFunctions;
     private AuthenticationService $authenticationService;
+    private TemplateEngine $templateEngine;
 
     /**
      * @param PDO $pdo
      */
-    public function __construct(PDO $pdo, AuthenticationService $authenticationService)
+    public function __construct(PDO $pdo, AuthenticationService $authenticationService, TemplateEngine $templateEngine)
     {
         $this->pdo = $pdo;
         $this->bookFunctions = new BookFunctions($this->pdo);
         $this->authenticationService = $authenticationService;
+        $this->templateEngine = $templateEngine;
     }
 
     public function showPage(Request $request, array $params): Response{
@@ -33,11 +36,7 @@ class DashboardController
 
         $books = $this->bookFunctions->getBooks($request->getParams());
 
-        ob_start();
-
-        require __DIR__ . '/../../../views/dashboard.html';
-
-        $html = ob_get_clean();
+        $html = $this->templateEngine->render('dashboard', $params);
 
         $html .= $headerRender->renderHeader();
 

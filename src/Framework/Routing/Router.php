@@ -2,8 +2,9 @@
 
 namespace Framework\Routing;
 use Framework\Http\Classes\Request;
+use Framework\Http\Interfaces\RequestInterface;
 
-class Router
+class Router implements RouterInterface
 {
     private array $routes = [];
 
@@ -19,7 +20,7 @@ class Router
         ];
     }
 
-    public function match(Request $request): ?array
+    public function route(RequestInterface $request): ?array
     {
         foreach ($this->routes as $route) {
 
@@ -30,10 +31,9 @@ class Router
             );
 
             $pattern = '#^' . $pattern . '$#';
-
             if (
                 $route['method'] === $request->getMethod() &&
-                preg_match($pattern, $request->getPath(), $matches)
+                preg_match($pattern, $request->getUri()->__toString(), $matches)
             ) {
 
                 array_shift($matches);
@@ -55,7 +55,6 @@ class Router
                 ];
             }
         }
-
-        return null;
+        throw new \DomainException("Domein niet gevonden");
     }
 }

@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Repository\BookFunctions;
 use App\Repository\UserFunctions;
 use Framework\AccesControl\AuthenticationService;
 use Framework\Http\Classes\Request;
 use Framework\Http\Classes\Response;
+use Framework\Templating\TemplateEngine;
 use JetBrains\PhpStorm\NoReturn;
 use PDO;
 
@@ -15,19 +17,18 @@ class LoginController
     private UserFunctions $functions;
     private PDO $pdo;
     private AuthenticationService $authenticationService;
+    private TemplateEngine $templateEngine;
 
-    public function __construct(PDO $pdo, AuthenticationService $authenticationService)
+    public function __construct(PDO $pdo, AuthenticationService $authenticationService, TemplateEngine $templateEngine)
     {
         $this->functions = new UserFunctions();
         $this->authenticationService = $authenticationService;
         $this->pdo = $pdo;
+        $this->templateEngine = $templateEngine;
     }
-    public function showPage(Request $request){
-        ob_start();
+    public function showPage(Request $request, array $params): Response{
 
-        require __DIR__ . '/../../../views/login.html';
-
-        $html = ob_get_clean();
+        $html = $this->templateEngine->render('login', $params);
 
         return new Response($html);
     }

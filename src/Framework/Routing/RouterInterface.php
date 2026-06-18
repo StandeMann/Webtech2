@@ -18,5 +18,5 @@ interface RouterInterface
      *
      * @throws \DomainException If no route was found for the request.
      */
-    function route(RequestInterface $request): callable;
+    function route(RequestInterface $request): ?array;
 }

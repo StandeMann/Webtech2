@@ -7,24 +7,25 @@ use App\Repository\ReviewFunctions;
 use Framework\AccesControl\AuthenticationService;
 use Framework\Http\Classes\Request;
 use Framework\Http\Classes\Response;
+use Framework\Templating\TemplateEngine;
 use PDO;
 
 class DeleteBookController
 {
     private BookFunctions $bookFunctions;
     private PDO $pdo;
-    private ReviewFunctions $reviewFunctions;
     private AuthenticationService $authenticationService;
+    private TemplateEngine $templateEngine;
 
     /**
      * @param PDO $pdo
      */
-    public function __construct(PDO $pdo, AuthenticationService $authenticationService)
+    public function __construct(PDO $pdo, AuthenticationService $authenticationService, TemplateEngine $templateEngine)
     {
         $this->pdo = $pdo;
         $this->bookFunctions = new BookFunctions($this->pdo);
-        $this->reviewFunctions = new ReviewFunctions($this->pdo);
         $this->authenticationService = $authenticationService;
+        $this->templateEngine = $templateEngine;
     }
 
     public function deleteBook(Request $request, array $params): Response{

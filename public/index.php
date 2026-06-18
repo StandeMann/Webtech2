@@ -10,10 +10,13 @@ use Framework\Database\Connection;
 use Framework\Http\Classes\Request;
 use Framework\Http\Classes\Session;
 use Framework\Kernel\Kernel;
+use Framework\Templating\TemplateEngine;
 
 $session =  new Session();
 
 $connection =  new Connection();
+
+$templateEngine = new TemplateEngine();
 
 $userFunctions = new UserFunctions();
 
@@ -24,7 +27,7 @@ $authenticationService = new AuthenticationService(
 
 $request = Request::FromGlobals();
 
-$kernel = new Kernel($connection, $authenticationService);
+$kernel = new Kernel($connection, $authenticationService, $templateEngine);
 
 $response = $kernel->handle($request);
 
