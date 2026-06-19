@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Repository\BookFunctions;
 use App\Repository\UserFunctions;
 use Framework\AccesControl\AuthenticationService;
+use Framework\Database\ConnectionInterface;
 use Framework\Http\Classes\Request;
 use Framework\Http\Classes\Response;
 use Framework\Templating\TemplateEngine;
@@ -12,17 +14,17 @@ use PDO;
 
 class RegisterController
 {
-    private UserFunctions $functions;
-    private PDO $pdo;
+    private ConnectionInterface $connection;
     private AuthenticationService $authenticationService;
     private TemplateEngine $templateEngine;
+    private UserFunctions $userFunctions;
 
-    public function __construct(PDO $pdo, authenticationService $authenticationService, TemplateEngine $templateEngine)
+    public function __construct(ConnectionInterface $connection, AuthenticationService $authenticationService, TemplateEngine $templateEngine)
     {
-        $this->functions = new UserFunctions();
-        $this->pdo = $pdo;
         $this->authenticationService = $authenticationService;
+        $this->connection = $connection;
         $this->templateEngine = $templateEngine;
+        $this->userFunctions = new UserFunctions($this->connection);
     }
 
     public function showPage(Request $request, array $params): Response{
@@ -33,14 +35,13 @@ class RegisterController
 
     #[NoReturn]
     public function register(Request $request){
-        $data = $request->getPost();
+        $data = $request->getAttributes();
 
         $name =  $data['name'];
         $email =  $data['email'];
         $password =  $data['password'];
 
-        $this->functions->createUser($name, $email, $password);
-
+        $this->userFunctions->createUser($name, $email, $password);
 
         header('Location: /login');
 

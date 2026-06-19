@@ -3,10 +3,9 @@ namespace Framework\Database;
 
 use PDO;
 
-class Connection
+class Connection implements ConnectionInterface
 {
     private PDO $pdo;
-
     public function __construct()
     {
         $path = realpath(__DIR__);
@@ -30,5 +29,30 @@ class Connection
     public function getPdo(): PDO
     {
         return $this->pdo;
+    }
+
+    function query(string $query, ...$params): array
+    {
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute($params);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    function execute(string $query, ...$params): int{
+        if ($query[0] === 'S'){
+            $stmt = $this->pdo->prepare($query);
+            $stmt->execute($params);
+            return count($stmt->fetchAll(PDO::FETCH_ASSOC));
+        }
+        else{
+            $stmt = $this->pdo->prepare($query);
+            $stmt->execute($params);
+            return $stmt->rowCount();
+        }
+    }
+
+    function getLastInsertId(): int
+    {
+        return $this->pdo->lastInsertId();
     }
 }

@@ -58,18 +58,6 @@ class Request implements RequestInterface{
         return $this->server['REQUEST_METHOD'] ?? 'GET';
     }
 
-    public function getPath(): string
-    {
-        return parse_url(
-            $this->server['REQUEST_URI'],
-            PHP_URL_PATH
-        );
-    }
-
-    public function getPost(): array
-    {
-        return $this->post;
-    }
 
     public function getParam(string $key): ?string{
         return $this->get[$key] ?? null;
@@ -78,7 +66,6 @@ class Request implements RequestInterface{
     public function getParams(): array{
         return $this->get;
     }
-
 
     function getHeaders(): array
     {

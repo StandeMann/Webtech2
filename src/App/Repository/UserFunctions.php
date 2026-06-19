@@ -4,47 +4,41 @@ namespace App\Repository;
 
 use Framework\Database\Connection;
 use App\Model\User;
+use Framework\Database\ConnectionInterface;
 use PDO;
 
 class UserFunctions
 {
-    private PDO $pdo;
-
-    public function __construct(){
-        $connection = new Connection();
-        $this->pdo = $connection->getPDO();
+    private ConnectionInterface $connection;
+    public function __construct(ConnectionInterface $connection)
+    {
+        $this->connection = $connection;
     }
-
     public function createUser(string $username, string $email, string $password): void{
         $hash = password_hash($password, PASSWORD_DEFAULT);
 
-        $query = $this->pdo->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
-        $query->execute([$username, $email, $hash]);
+        $this->connection->execute("INSERT INTO users (username, email, password) VALUES (?, ?, ?)", $username, $email, $hash);
     }
 
     public function getUser(int $id): User{
-        $statement = $this->pdo->prepare("SELECT * FROM users WHERE id = ?");
-        $statement->execute([$id]);
-        $row = $statement->fetch(PDO::FETCH_ASSOC);
+        $row = $this->connection->query("SELECT * FROM users WHERE id = ?", $id);
         return new User(
-            $row['id'],
-            $row['username'],
-            $row['email'],
-            password_hash($row['password'], PASSWORD_DEFAULT),
-            $row['role']
+            $row[0]['id'],
+            $row[0]['username'],
+            $row[0]['email'],
+            password_hash($row[0]['password'], PASSWORD_DEFAULT),
+            $row[0]['role']
         );
     }
 
     public function getUserByEmail(string $email): User{
-        $statement = $this->pdo->prepare("SELECT * FROM users WHERE email = ?");
-        $statement->execute([$email]);
-        $row = $statement->fetch(PDO::FETCH_ASSOC);
+        $row = $this->connection->query("SELECT * FROM users WHERE email = ?", $email);
         return new User(
-            $row['id'],
-            $row['username'],
-            $row['email'],
-            $row['password'],
-            $row['role']
+            $row[0]['id'],
+            $row[0]['username'],
+            $row[0]['email'],
+            $row[0]['password'],
+            $row[0]['role']
         );
     }
 }

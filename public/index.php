@@ -18,7 +18,7 @@ $connection =  new Connection();
 
 $templateEngine = new TemplateEngine();
 
-$userFunctions = new UserFunctions();
+$userFunctions = new UserFunctions($connection);
 
 $authenticationService = new AuthenticationService(
     $session,

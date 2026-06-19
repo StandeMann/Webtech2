@@ -38,14 +38,14 @@ class Kernel implements KernelInterface
     {
         $router = new Router();
 
-        $addBookController = new AddBookController($this::getConnection()->getPdo(), $this->authenticationService, $this->templateEngine);
-        $bookDetailController = new BookDetailController($this::getConnection()->getPdo(), $this->authenticationService, $this->templateEngine);
-        $dashBoardController = new DashBoardController($this::getConnection()->getPdo(), $this->authenticationService, $this->templateEngine);
-        $loginController = new LoginController($this::getConnection()->getPdo(), $this->authenticationService, $this->templateEngine);
-        $registerController = new RegisterController($this::getConnection()->getPdo(), $this->authenticationService, $this->templateEngine);
-        $errorController = new ErrorController($this::getConnection()->getPdo(), $this->authenticationService, $this->templateEngine);
-        $logoutController = new LogoutController($this::getConnection()->getPdo(), $this->authenticationService, $this->templateEngine);
-        $deleteBookController = new DeleteBookController($this::getConnection()->getPdo(), $this->authenticationService, $this->templateEngine);
+        $addBookController = new AddBookController($this::getConnection(), $this->authenticationService, $this->templateEngine);
+        $bookDetailController = new BookDetailController($this::getConnection(), $this->authenticationService, $this->templateEngine);
+        $dashBoardController = new DashBoardController($this::getConnection(), $this->authenticationService, $this->templateEngine);
+        $loginController = new LoginController($this::getConnection(), $this->authenticationService, $this->templateEngine);
+        $registerController = new RegisterController($this::getConnection(), $this->authenticationService, $this->templateEngine);
+        $errorController = new ErrorController($this::getConnection(), $this->authenticationService, $this->templateEngine);
+        $logoutController = new LogoutController($this::getConnection(), $this->authenticationService, $this->templateEngine);
+        $deleteBookController = new DeleteBookController($this::getConnection(), $this->authenticationService, $this->templateEngine);
 
         $router->add(
             'GET',
@@ -154,11 +154,7 @@ class Kernel implements KernelInterface
 
             return $controller($request, $params);
         } catch (\DomainException $e) {
-            ob_start();
-
-            require __DIR__ . '/../../../views/404.html';
-
-            $html = ob_get_clean();
+            $html = $this->templateEngine->render('404', []);
             return new Response($html, 404);
         }
     }

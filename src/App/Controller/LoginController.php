@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Repository\BookFunctions;
 use App\Repository\UserFunctions;
 use Framework\AccesControl\AuthenticationService;
+use Framework\Database\ConnectionInterface;
 use Framework\Http\Classes\Request;
 use Framework\Http\Classes\Response;
 use Framework\Templating\TemplateEngine;
@@ -14,16 +15,16 @@ use PDO;
 class LoginController
 {
 
-    private UserFunctions $functions;
-    private PDO $pdo;
+    private ConnectionInterface $connection;
     private AuthenticationService $authenticationService;
     private TemplateEngine $templateEngine;
+    private UserFunctions $userFunctions;
 
-    public function __construct(PDO $pdo, AuthenticationService $authenticationService, TemplateEngine $templateEngine)
+    public function __construct(ConnectionInterface $connection, AuthenticationService $authenticationService, TemplateEngine $templateEngine)
     {
-        $this->functions = new UserFunctions();
         $this->authenticationService = $authenticationService;
-        $this->pdo = $pdo;
+        $this->connection = $connection;
+        $this->userFunctions = new UserFunctions($this->connection);
         $this->templateEngine = $templateEngine;
     }
     public function showPage(Request $request, array $params): Response{
@@ -45,12 +46,12 @@ class LoginController
             exit;
         }
 
-        $data = $request->getPost();
+        $data = $request->getAttributes();
         $email = $data["email"];
         $password = $data["password"];
 
 
-        $user = $this->functions->getUserByEmail($email);
+        $user = $this->userFunctions->getUserByEmail($email);
         $databaseHash = $user->password;
 
         if (password_verify($password, $databaseHash)){

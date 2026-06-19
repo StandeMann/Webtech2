@@ -8,6 +8,7 @@ use App\View\CompileHeaderView;
 use App\View\CompileReviewView;
 use App\View\ReviewView;
 use Framework\AccesControl\AuthenticationService;
+use Framework\Database\ConnectionInterface;
 use Framework\Http\Classes\Request;
 use Framework\Http\Classes\Response;
 use Framework\Templating\TemplateEngine;
@@ -15,21 +16,17 @@ use PDO;
 
 class BookDetailController
 {
+    private ConnectionInterface $connection;
     private BookFunctions $bookFunctions;
-    private PDO $pdo;
-    private ReviewFunctions $reviewFunctions;
     private AuthenticationService $authenticationService;
     private TemplateEngine $templateEngine;
-
-    /**
-     * @param PDO $pdo
-     */
-    public function __construct(PDO $pdo, AuthenticationService $authenticationService, TemplateEngine $templateEngine)
+    private ReviewFunctions $reviewFunctions;
+    public function __construct(ConnectionInterface $connection, AuthenticationService $authenticationService, TemplateEngine $templateEngine)
     {
-        $this->pdo = $pdo;
-        $this->bookFunctions = new BookFunctions($this->pdo);
-        $this->reviewFunctions = new ReviewFunctions($this->pdo);
         $this->authenticationService = $authenticationService;
+        $this->connection = $connection;
+        $this->bookFunctions = new BookFunctions($this->connection);
+        $this->reviewFunctions = new ReviewFunctions($this->connection);
         $this->templateEngine = $templateEngine;
     }
 
@@ -67,7 +64,7 @@ class BookDetailController
     }
 
     public function addReview(Request $request, array $params): Response{
-        $data = $request->getPost();
+        $data = $request->getAttributes();
         $stars = $data['stars'];
         $description = $data['description'];
         $id = (int)$params['id'];

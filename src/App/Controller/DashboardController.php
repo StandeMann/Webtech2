@@ -6,6 +6,7 @@ use App\Repository\BookFunctions;
 use App\View\CompileDashBoardView;
 use App\View\CompileHeaderView;
 use Framework\AccesControl\AuthenticationService;
+use Framework\Database\ConnectionInterface;
 use Framework\Http\Classes\Request;
 use Framework\Http\Classes\Response;
 use Framework\Templating\TemplateEngine;
@@ -14,19 +15,16 @@ use PDO;
 
 class DashboardController
 {
-    private PDO $pdo;
+    private ConnectionInterface $connection;
     private BookFunctions $bookFunctions;
     private AuthenticationService $authenticationService;
     private TemplateEngine $templateEngine;
 
-    /**
-     * @param PDO $pdo
-     */
-    public function __construct(PDO $pdo, AuthenticationService $authenticationService, TemplateEngine $templateEngine)
+    public function __construct(ConnectionInterface $connection, AuthenticationService $authenticationService, TemplateEngine $templateEngine)
     {
-        $this->pdo = $pdo;
-        $this->bookFunctions = new BookFunctions($this->pdo);
         $this->authenticationService = $authenticationService;
+        $this->connection = $connection;
+        $this->bookFunctions = new BookFunctions($this->connection);
         $this->templateEngine = $templateEngine;
     }
 
@@ -55,7 +53,7 @@ class DashboardController
 
     #[NoReturn]
     public function useFilter(Request $request): Response{
-        $data = $request->getPost();
+        $data = $request->getAttributes();
         $title  = $data['title'] ?? '';
         $author = $data['author'] ?? '';
         $genre  = $data['genre'] ?? '';

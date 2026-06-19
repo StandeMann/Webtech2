@@ -11,6 +11,7 @@ class User
         public string $password,
         public string $role)
     {
+
     }
 
     public function getId(): int
