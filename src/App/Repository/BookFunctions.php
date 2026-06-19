@@ -88,7 +88,6 @@ class BookFunctions
     }
 
     private function findByFilters(array $filters): array{
-
         $sql = 'SELECT * FROM books WHERE 1=1';
         $params = [];
 
@@ -107,7 +106,7 @@ class BookFunctions
             $params['genre'] = $filters['genre'];
         }
 
-        return $this->connection->query($sql, $params);
+        return $this->connection->query($sql, ...$params);
     }
 
     private function filtersActive(array $filters): bool{
