@@ -8,11 +8,10 @@ use App\View\CompileHeaderView;
 use App\View\CompileReviewView;
 use App\View\ReviewView;
 use Framework\AccesControl\AuthenticationService;
-use Framework\Database\ConnectionInterface;
+use Framework\Database\Interfaces\ConnectionInterface;
 use Framework\Http\Classes\Request;
 use Framework\Http\Classes\Response;
 use Framework\Templating\TemplateEngine;
-use PDO;
 
 class BookDetailController
 {

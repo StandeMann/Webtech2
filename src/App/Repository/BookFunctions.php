@@ -3,7 +3,7 @@
 namespace App\Repository;
 
 use App\Model\Book;
-use Framework\Database\ConnectionInterface;
+use Framework\Database\Interfaces\ConnectionInterface;
 
 class BookFunctions
 {

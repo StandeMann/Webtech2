@@ -6,7 +6,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\Repository\UserFunctions;
 use Framework\AccesControl\AuthenticationService;
-use Framework\Database\Connection;
+use Framework\Database\Classes\Connection;
 use Framework\Http\Classes\Request;
 use Framework\Http\Classes\Session;
 use Framework\Kernel\Kernel;

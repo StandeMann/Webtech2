@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../vendor/autoload.php';
-use Framework\Database\Connection;
-use Framework\Database\DatabaseMigrator;
+
+use Framework\Database\Classes\Connection;
 
 $connection = new Connection();
 

@@ -6,12 +6,11 @@ use App\Repository\BookFunctions;
 use App\View\CompileDashBoardView;
 use App\View\CompileHeaderView;
 use Framework\AccesControl\AuthenticationService;
-use Framework\Database\ConnectionInterface;
+use Framework\Database\Interfaces\ConnectionInterface;
 use Framework\Http\Classes\Request;
 use Framework\Http\Classes\Response;
 use Framework\Templating\TemplateEngine;
 use JetBrains\PhpStorm\NoReturn;
-use PDO;
 
 class DashboardController
 {

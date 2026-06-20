@@ -2,15 +2,13 @@
 
 namespace App\Controller;
 
-use App\Repository\BookFunctions;
 use App\Repository\UserFunctions;
 use Framework\AccesControl\AuthenticationService;
-use Framework\Database\ConnectionInterface;
+use Framework\Database\Interfaces\ConnectionInterface;
 use Framework\Http\Classes\Request;
 use Framework\Http\Classes\Response;
 use Framework\Templating\TemplateEngine;
 use JetBrains\PhpStorm\NoReturn;
-use PDO;
 
 class LoginController
 {

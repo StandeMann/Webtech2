@@ -2,8 +2,9 @@
 
 namespace App\Repository;
 use App\Model\ReviewUser;
-use Framework\Database\ConnectionInterface;
+use Framework\Database\Interfaces\ConnectionInterface;
 use PDO;
+
 class ReviewFunctions
 {
     private ConnectionInterface $connection;

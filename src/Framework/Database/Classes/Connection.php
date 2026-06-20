@@ -1,6 +1,7 @@
 <?php
-namespace Framework\Database;
+namespace Framework\Database\Classes;
 
+use Framework\Database\Interfaces\ConnectionInterface;
 use PDO;
 
 class Connection implements ConnectionInterface

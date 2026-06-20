@@ -1,6 +1,6 @@
 <?php
 
-namespace Framework\Database;
+namespace Framework\Database\Interfaces;
 
 /**
  * A service that allows executing of SQL queries on a database.

@@ -6,11 +6,10 @@ use App\Repository\BookFunctions;
 use App\View\CompileAddBookView;
 use App\View\CompileHeaderView;
 use Framework\AccesControl\AuthenticationService;
-use Framework\Database\ConnectionInterface;
+use Framework\Database\Interfaces\ConnectionInterface;
 use Framework\Http\Classes\Request;
 use Framework\Http\Classes\Response;
 use Framework\Templating\TemplateEngine;
-use PDO;
 
 class AddBookController
 {
@@ -51,9 +50,6 @@ class AddBookController
     public function addBook(Request $request, array $params): Response{
         $data = $request->getAttributes();
         $user = $request->getUser();
-//        $img = $request->getFiles();
-
-//        $imgData = file_get_contents($img['image']['tmp_name']);
         $title = $data['title'];
         $author = $data['author'];
         $genre = $data['genre'];

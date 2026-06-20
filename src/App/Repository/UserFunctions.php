@@ -2,10 +2,8 @@
 
 namespace App\Repository;
 
-use Framework\Database\Connection;
 use App\Model\User;
-use Framework\Database\ConnectionInterface;
-use PDO;
+use Framework\Database\Interfaces\ConnectionInterface;
 
 class UserFunctions
 {

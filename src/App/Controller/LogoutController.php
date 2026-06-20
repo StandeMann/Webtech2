@@ -3,12 +3,10 @@
 namespace App\Controller;
 
 
-use App\Repository\BookFunctions;
 use Framework\AccesControl\AuthenticationService;
-use Framework\Database\ConnectionInterface;
+use Framework\Database\Interfaces\ConnectionInterface;
 use Framework\Http\Classes\Request;
 use Framework\Templating\TemplateEngine;
-use PDO;
 
 class LogoutController
 {
