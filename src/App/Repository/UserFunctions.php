@@ -19,7 +19,7 @@ class UserFunctions
     }
 
     public function getUser(int $id): User{
-        $row = $this->connection->query("SELECT * FROM users WHERE id = ?", $id);
+        $row = $this->connection->query("SELECT * FROM users WHERE id = :id", $id);
         return new User(
             $row[0]['id'],
             $row[0]['username'],

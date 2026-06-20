@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Repository\BookFunctions;
+use App\Repository\BookRepository;
 use App\Repository\ReviewFunctions;
+use App\Repository\ReviewRepository;
 use App\View\CompileHeaderView;
 use App\View\CompileReviewView;
 use App\View\ReviewView;
@@ -16,16 +18,18 @@ use Framework\Templating\TemplateEngine;
 class BookDetailController
 {
     private ConnectionInterface $connection;
-    private BookFunctions $bookFunctions;
     private AuthenticationService $authenticationService;
+    private BookRepository $bookRepository;
+    private ReviewRepository $reviewRepository;
     private TemplateEngine $templateEngine;
     private ReviewFunctions $reviewFunctions;
     public function __construct(ConnectionInterface $connection, AuthenticationService $authenticationService, TemplateEngine $templateEngine)
     {
         $this->authenticationService = $authenticationService;
         $this->connection = $connection;
-        $this->bookFunctions = new BookFunctions($this->connection);
         $this->reviewFunctions = new ReviewFunctions($this->connection);
+        $this->bookRepository = new BookRepository($this->connection);
+        $this->reviewRepository = new ReviewRepository($this->connection);
         $this->templateEngine = $templateEngine;
     }
 
@@ -34,7 +38,8 @@ class BookDetailController
 
         $id = (int)$params['id'];
 
-        $book = $this->bookFunctions->getBook($id);
+//        $book = $this->bookFunctions->getBook($id);
+        $book = $this->bookRepository->getBook($id);
 
         if((!$user || $user->getRole() == "user") && $book->showable === 0){
             $location = 'Location: /403';
@@ -53,7 +58,8 @@ class BookDetailController
 
         $html.= $reviewRender->renderReviewForm($id);
 
-        $reviews = $this->reviewFunctions->getReviews($id);
+//        $reviews = $this->reviewFunctions->getReviews($id);
+        $reviews = $this->reviewRepository->getReviews($id);
 
         $html .= $reviewRender->renderReviewList($reviews, $id);
 
@@ -68,7 +74,9 @@ class BookDetailController
         $description = $data['description'];
         $id = (int)$params['id'];
         $user  = $request->getUser();
-        $this->reviewFunctions->addReview($description, $stars, $id, $user->getId());
+//        $this->reviewFunctions->addReview($description, $stars, $id, $user->getId());
+        $this->reviewRepository->addReview($description, $stars, $id, $user->getId());
+
 
         $location = 'Location: /bookDetail/'.$id;
 
@@ -84,14 +92,16 @@ class BookDetailController
             exit;
         }
         $id = (int)$params['id'];
-        $book = $this->bookFunctions->getBook($id);
+        $book = $this->bookRepository->getBook($id);
 
-        if ($book->showable === 0) {
-            $this->bookFunctions->makeBookVisible($id);
-        }
-        if ($book->showable === 1) {
-            $this->bookFunctions->makeBookHidden($id);
-        }
+//        if ($book->showable === 0) {
+//            $this->bookFunctions->makeBookVisible($id);
+//        }
+//        if ($book->showable === 1) {
+//            $this->bookFunctions->makeBookHidden($id);
+//        }
+
+        $this->bookRepository->changeBookVisible($id);
 
         $location = 'Location: /bookDetail/'.$id;
 
@@ -115,7 +125,8 @@ class BookDetailController
 
         if ($user->getRole() == 'admin') {
             $reviewId = (int)$params['id'];
-            $this->reviewFunctions->deleteReview($reviewId);
+//            $this->reviewFunctions->deleteReview($reviewId);
+            $this->reviewRepository->deleteReview($reviewId);
             $location = 'Location: /';
             header($location);
             exit;

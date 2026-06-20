@@ -37,7 +37,8 @@ class BookMapper implements DataMapperInterface{
 
     function select(string $query, ...$params): array
     {
-        return $this->connection->query($query, $params);
+        return $this->connection->query($query, ...$params);
+
     }
 
     function insert($object): void{
@@ -48,21 +49,26 @@ class BookMapper implements DataMapperInterface{
 
     function update($object): void
     {
-        // TODO: Implement update() method.
+        if ($object->showable === 1){
+            $this->connection->execute("UPDATE books SET showable = :showable WHERE id = :id", 0, $object->id);
+        }
+        else{
+            $this->connection->execute("UPDATE books SET showable = :showable WHERE id = :id", 1, $object->id);
+        }
     }
 
     function delete($object): void
     {
-        $this->connection->execute("DELETE FROM reviews WHERE id = :id;", $object->id);
+        $this->connection->execute("DELETE FROM books WHERE id = :id;", $object->id);
     }
 
     private function numberOfReviews(int $bookId): int{
         $row = $this->connection->query("SELECT COUNT(*) as reviewCount FROM reviews WHERE book_id = :id;", $bookId);
-        return (int) ($row['reviewCount'] ?? 0);
+        return (int) ($row[0]['reviewCount'] ?? 0);
     }
 
     private function getAverageStars(int $bookId): float{
         $row = $this->connection->query("SELECT ROUND(AVG(stars),1) as average FROM reviews WHERE book_id = :id;", $bookId);
-        return (float) ($row['average'] ?? 0);
+        return (float) ($row[0]['average'] ?? 0);
     }
 }

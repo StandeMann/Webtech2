@@ -31,10 +31,13 @@ class ReviewMapper implements DataMapperInterface
 
     function select(string $query, ...$params): array
     {
-        return $this->connection->query($query, $params);
+        return $this->connection->query($query, ...$params);
     }
 
     function insert($object): void{
+        $this->connection->execute(
+            "INSERT INTO reviews (description, stars, book_id, user_id)VALUES (:description, :stars, :book_id, :user_id)",
+            $object->description, $object->stars, $object->book_id, $object->user_id);
     }
 
     function update($object): void

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\BookFunctions;
+use App\Repository\BookRepository;
 use App\View\CompileDashBoardView;
 use App\View\CompileHeaderView;
 use Framework\AccesControl\AuthenticationService;
@@ -18,12 +19,14 @@ class DashboardController
     private BookFunctions $bookFunctions;
     private AuthenticationService $authenticationService;
     private TemplateEngine $templateEngine;
+    private BookRepository $bookRepository;
 
     public function __construct(ConnectionInterface $connection, AuthenticationService $authenticationService, TemplateEngine $templateEngine)
     {
         $this->authenticationService = $authenticationService;
         $this->connection = $connection;
         $this->bookFunctions = new BookFunctions($this->connection);
+        $this->bookRepository = new BookRepository($this->connection);
         $this->templateEngine = $templateEngine;
     }
 
@@ -31,7 +34,9 @@ class DashboardController
         $dashBoardRender = new CompileDashBoardView($request);
         $headerRender = new CompileHeaderView($request);
 
-        $books = $this->bookFunctions->getBooks($request->getParams());
+//        $books = $this->bookFunctions->getBooks($request->getParams());
+//        var_dump($request->getParams());
+        $books = $this->bookRepository->getBooks($request->getParams());
 
         $html = $this->templateEngine->render('dashboard', $params);
 

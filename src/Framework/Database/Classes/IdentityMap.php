@@ -15,25 +15,21 @@ class IdentityMap implements IdentityMapInterface{
 
     function contains($object): bool
     {
-        // TODO: Implement contains() method.
         return isset($this->data[$object]);
     }
 
     function get(int $id): object
     {
-        // TODO: Implement get() method.
         return $this->data[$id];
     }
 
     function add(int $id, $object): void
     {
-        // TODO: Implement add() method.
         $this->data[$id] = $object;
     }
 
     function remove($object): void
     {
-        // TODO: Implement remove() method.
         unset($this->data[$object]);
     }
 }

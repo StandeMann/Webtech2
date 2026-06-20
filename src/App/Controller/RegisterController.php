@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Repository\UserFunctions;
+use App\Repository\UserRepository;
 use Framework\AccesControl\AuthenticationService;
 use Framework\Database\Interfaces\ConnectionInterface;
+use Framework\Database\Interfaces\RepositoryInterface;
 use Framework\Http\Classes\Request;
 use Framework\Http\Classes\Response;
 use Framework\Templating\TemplateEngine;
@@ -16,6 +18,7 @@ class RegisterController
     private AuthenticationService $authenticationService;
     private TemplateEngine $templateEngine;
     private UserFunctions $userFunctions;
+    private RepositoryInterface $repository;
 
     public function __construct(ConnectionInterface $connection, AuthenticationService $authenticationService, TemplateEngine $templateEngine)
     {
@@ -23,6 +26,7 @@ class RegisterController
         $this->connection = $connection;
         $this->templateEngine = $templateEngine;
         $this->userFunctions = new UserFunctions($this->connection);
+        $this->repository = new UserRepository($this->connection);
     }
 
     public function showPage(Request $request, array $params): Response{
@@ -39,7 +43,7 @@ class RegisterController
         $email =  $data['email'];
         $password =  $data['password'];
 
-        $this->userFunctions->createUser($name, $email, $password);
+        $this->repository->createUser($name, $email, $password);
 
         header('Location: /login');
 

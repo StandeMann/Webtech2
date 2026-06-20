@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\BookFunctions;
+use App\Repository\BookRepository;
 use Framework\AccesControl\AuthenticationService;
 use Framework\Database\Interfaces\ConnectionInterface;
 use Framework\Http\Classes\Request;
@@ -12,15 +13,15 @@ use Framework\Templating\TemplateEngine;
 class DeleteBookController
 {
     private ConnectionInterface $connection;
-    private BookFunctions $bookFunctions;
     private AuthenticationService $authenticationService;
     private TemplateEngine $templateEngine;
+    private BookRepository $bookRepository;
 
     public function __construct(ConnectionInterface $connection, AuthenticationService $authenticationService, TemplateEngine $templateEngine)
     {
         $this->authenticationService = $authenticationService;
         $this->connection = $connection;
-        $this->bookFunctions = new BookFunctions($this->connection);
+        $this->bookRepository = new BookRepository($this->connection);
         $this->templateEngine = $templateEngine;
     }
 
@@ -40,7 +41,7 @@ class DeleteBookController
 
         if ($user->getRole() == 'admin') {
             $bookId = (int)$params['id'];
-            $this->bookFunctions->deleteBook($bookId);
+            $this->bookRepository->deleteBook($bookId);
             $location = 'Location: /';
             header($location);
             exit;

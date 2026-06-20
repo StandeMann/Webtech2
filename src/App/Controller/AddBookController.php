@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Model\Book;
 use App\Repository\BookFunctions;
+use App\Repository\BookRepository;
 use App\View\CompileAddBookView;
 use App\View\CompileHeaderView;
 use Framework\AccesControl\AuthenticationService;
@@ -14,15 +16,15 @@ use Framework\Templating\TemplateEngine;
 class AddBookController
 {
     private ConnectionInterface $connection;
-    private BookFunctions $bookFunctions;
     private AuthenticationService $authenticationService;
     private TemplateEngine $templateEngine;
+    private BookRepository $bookRepository;
 
     public function __construct(ConnectionInterface $connection, AuthenticationService $authenticationService, TemplateEngine $templateEngine)
     {
         $this->authenticationService = $authenticationService;
         $this->connection = $connection;
-        $this->bookFunctions = new BookFunctions($this->connection);
+        $this->bookRepository = new BookRepository($this->connection);
         $this->templateEngine = $templateEngine;
     }
 
@@ -55,8 +57,8 @@ class AddBookController
         $genre = $data['genre'];
         $description = $data['description'];
 
-        $this->bookFunctions->addBook($title, $author, $genre, $description, $user->getId());
-
+        $newBook = new Book(0, $title, $author, $genre, $description, $user->getId(), 0, 0,0);
+        $this->bookRepository->addBook($newBook);
         header('Location: /');
         exit;
     }

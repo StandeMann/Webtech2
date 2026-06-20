@@ -35,6 +35,7 @@ class UserMapper implements DataMapperInterface
     }
 
     function insert($object): void{
+        $this->connection->execute("INSERT INTO users (username, email, password) VALUES (?, ?, ?)", $object->username, $object->email, $object->password);
     }
 
     function update($object): void
