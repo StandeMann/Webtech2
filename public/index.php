@@ -4,7 +4,7 @@ session_start();
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use App\Repository\UserFunctions;
+use App\Repository\UserRepository;
 use Framework\AccesControl\AuthenticationService;
 use Framework\Database\Classes\Connection;
 use Framework\Http\Classes\Request;
@@ -18,11 +18,11 @@ $connection =  new Connection();
 
 $templateEngine = new TemplateEngine();
 
-$userFunctions = new UserFunctions($connection);
+$userRepository = new UserRepository($connection);
 
 $authenticationService = new AuthenticationService(
     $session,
-    $userFunctions
+    $userRepository
 );
 
 $request = Request::FromGlobals();

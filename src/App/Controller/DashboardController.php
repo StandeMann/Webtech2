@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Repository\BookFunctions;
 use App\Repository\BookRepository;
 use App\View\CompileDashBoardView;
 use App\View\CompileHeaderView;
@@ -16,7 +15,6 @@ use JetBrains\PhpStorm\NoReturn;
 class DashboardController
 {
     private ConnectionInterface $connection;
-    private BookFunctions $bookFunctions;
     private AuthenticationService $authenticationService;
     private TemplateEngine $templateEngine;
     private BookRepository $bookRepository;
@@ -25,7 +23,6 @@ class DashboardController
     {
         $this->authenticationService = $authenticationService;
         $this->connection = $connection;
-        $this->bookFunctions = new BookFunctions($this->connection);
         $this->bookRepository = new BookRepository($this->connection);
         $this->templateEngine = $templateEngine;
     }
@@ -34,8 +31,6 @@ class DashboardController
         $dashBoardRender = new CompileDashBoardView($request);
         $headerRender = new CompileHeaderView($request);
 
-//        $books = $this->bookFunctions->getBooks($request->getParams());
-//        var_dump($request->getParams());
         $books = $this->bookRepository->getBooks($request->getParams());
 
         $html = $this->templateEngine->render('dashboard', $params);

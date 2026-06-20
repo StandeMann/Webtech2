@@ -44,9 +44,9 @@ class Connection implements ConnectionInterface
     function query(string $query, ...$params): array
     {
         try {
+//            var_dump($query, $params);
             $stmt = $this->pdo->prepare($query);
 
-            // flatten check (voorkomt [[7]]-bug)
             if (count($params) === 1 && is_array($params[0])) {
                 $params = $params[0];
             }

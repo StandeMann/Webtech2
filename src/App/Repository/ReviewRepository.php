@@ -78,13 +78,13 @@ class ReviewRepository implements RepositoryInterface
     }
 
     private function getReview(int $id): Review{
-        $row = $this->mapper->select("SELECT * FROM reviews WHERE id = ?", $id);
+        $row = $this->mapper->select("SELECT * FROM reviews WHERE id = :id", $id);
         return new Review(
-            $row['id'],
-            $row['description'],
-            $row['stars'],
-            $row['book_id'],
-            $row['user_id']
+            $row[0]['id'],
+            $row[0]['description'],
+            $row[0]['stars'],
+            $row[0]['book_id'],
+            $row[0]['user_id']
         );
     }
 

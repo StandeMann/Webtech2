@@ -12,7 +12,6 @@ use Framework\Templating\TemplateEngine;
 class ErrorController
 {
     private ConnectionInterface $connection;
-    private BookFunctions $bookFunctions;
     private AuthenticationService $authenticationService;
     private TemplateEngine $templateEngine;
 
@@ -20,7 +19,6 @@ class ErrorController
     {
         $this->authenticationService = $authenticationService;
         $this->connection = $connection;
-        $this->bookFunctions = new BookFunctions($this->connection);
         $this->templateEngine = $templateEngine;
     }
 

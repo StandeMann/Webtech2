@@ -17,7 +17,6 @@ class RegisterController
     private ConnectionInterface $connection;
     private AuthenticationService $authenticationService;
     private TemplateEngine $templateEngine;
-    private UserFunctions $userFunctions;
     private RepositoryInterface $repository;
 
     public function __construct(ConnectionInterface $connection, AuthenticationService $authenticationService, TemplateEngine $templateEngine)
@@ -25,7 +24,6 @@ class RegisterController
         $this->authenticationService = $authenticationService;
         $this->connection = $connection;
         $this->templateEngine = $templateEngine;
-        $this->userFunctions = new UserFunctions($this->connection);
         $this->repository = new UserRepository($this->connection);
     }
 

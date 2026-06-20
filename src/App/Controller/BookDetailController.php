@@ -22,12 +22,10 @@ class BookDetailController
     private BookRepository $bookRepository;
     private ReviewRepository $reviewRepository;
     private TemplateEngine $templateEngine;
-    private ReviewFunctions $reviewFunctions;
     public function __construct(ConnectionInterface $connection, AuthenticationService $authenticationService, TemplateEngine $templateEngine)
     {
         $this->authenticationService = $authenticationService;
         $this->connection = $connection;
-        $this->reviewFunctions = new ReviewFunctions($this->connection);
         $this->bookRepository = new BookRepository($this->connection);
         $this->reviewRepository = new ReviewRepository($this->connection);
         $this->templateEngine = $templateEngine;
@@ -93,13 +91,6 @@ class BookDetailController
         }
         $id = (int)$params['id'];
         $book = $this->bookRepository->getBook($id);
-
-//        if ($book->showable === 0) {
-//            $this->bookFunctions->makeBookVisible($id);
-//        }
-//        if ($book->showable === 1) {
-//            $this->bookFunctions->makeBookHidden($id);
-//        }
 
         $this->bookRepository->changeBookVisible($id);
 

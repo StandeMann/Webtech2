@@ -47,6 +47,6 @@ class ReviewMapper implements DataMapperInterface
 
     function delete($object): void
     {
-        $this->connection->execute("DELETE FROM reviews WHERE book_id = :id;", $object->id);
+        $this->connection->execute("DELETE FROM reviews WHERE id = :id;", $object->id);
     }
 }

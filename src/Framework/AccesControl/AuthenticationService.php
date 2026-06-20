@@ -4,13 +4,14 @@ namespace Framework\AccesControl;
 
 use App\Model\User;
 use App\Repository\UserFunctions;
+use App\Repository\UserRepository;
 use Framework\Http\Classes\Session;
 
 class AuthenticationService
 {
     public function __construct(
         private Session $session,
-        private UserFunctions $userFunctions)
+        private UserRepository $userFunctions)
     {}
     public function getCurrentUser(): ?User{
         $userId = $this->session->get('user_id');
