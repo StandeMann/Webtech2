@@ -17,9 +17,16 @@ root staat kan je de applicatie opstarten door het uitvoeren van de command:
 
 *php -S localhost:8000 -t public*
 
-Na het uitvoeren van deze command kom je op het dashbaord terecht als bezoeker. Hier kan je verschillende kanten op,
+Na het uitvoeren van deze command kom je op het dashboard terecht als bezoeker. Hier kan je verschillende kanten op,
 boeken bekijken of inloggen. Met de vooraf genoteerde inloggegevens kan je inloggen als admin of zelf een account
 registeren en hiermee een gebruiker account hebben.
+
+# Laatste week
+Het is mij helaas niet gelukt om de laatste week te implementeren op de gewenste manier, door tijdgebrek. Door
+deze reden heb ik de interfaces voor de session en authenticatie/authorisatie niet kunnen gebruiken. Ik heb de
+functionaliteit wel toegevoegd op mijn eigen manier, helaas snapte ik de laatste week minder goed.
+
+Stan Freese | 421588
 
 
 
